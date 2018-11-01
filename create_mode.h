@@ -10,10 +10,19 @@ using std::string;
 typedef struct NN_Mission ms1;
 struct NN_Mission{
     string Model_type;
-    vector<int> neu;
+    string Optimizer;
+    string File_name;
+    string Dataset_File_Name;
+    vector<string> Actvision = {};
+    vector<int> Neu;
+    double Learning_rate;
     int Epoch_count;
     int Class_count;
     int Import_Mode;
+    int Sample_Size;
+    int Batch_size;
+    bool Auto_Dataset;
+
 
 };
 
@@ -56,6 +65,16 @@ private slots:
     void change_tab();
 
     void on_Generation_Mode_currentIndexChanged(int index);
+
+    void combobox3_check();
+
+    void on_find_file_clicked();
+
+    void on_comboBox_3_currentIndexChanged(int index);
+
+    void combobox3_change();
+
+    void on_comboBox_3_activated(int index);
 
 private:
     Ui::Create_Mode *ui;
