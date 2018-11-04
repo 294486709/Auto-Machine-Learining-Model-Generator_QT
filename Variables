@@ -1,6 +1,14 @@
-create_model
-
-CLASS_COUNT
-EPOCH_COUNT
-NUM_LAYER
-NUM_NEU
+string Model_type: passive <string> 
+int Optimizer: selectionbox "Adadelta","AdagradDA","Adagrad","Adam","Ftrl","GradientDescent","Momentum","ProximalAdagrad","PorximalGradientDescent","RMSProp","sdca_","SyncReplicas"
+string File_name: 'input' <string>
+string Dataset_File_Name: 'broswer' vector<string>
+vector<string> Actvision: 'window input' vector<string>: window input
+vector<int> Neu: 'window input'
+double Learning_rate: input
+int Epoch_count: input
+int Class_count: input
+int Import_Mode: selectionbox
+int Sample_Size: input
+int Batch_size: input
+int Logic: 'selectionbox' 1.softmax 2.sigmoid 3.aparse_softmax 4.weighted
+bool Auto_Dataset: input

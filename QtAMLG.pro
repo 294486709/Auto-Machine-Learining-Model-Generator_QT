@@ -27,15 +27,18 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    create_mode.cpp
+    create_mode.cpp \
+    layer_setting.cpp
 
 HEADERS += \
         mainwindow.h \
-    create_mode.h
+    create_mode.h \
+    layer_setting.h
 
 FORMS += \
         mainwindow.ui \
-    create_mode.ui
+    create_mode.ui \
+    layer_setting.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

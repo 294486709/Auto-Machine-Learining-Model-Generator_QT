@@ -16,13 +16,14 @@ using std::ofstream;
 using std::vector;
 using std::string;
 QStringList GFiles = {};
+QStringList GFiles1 = {};
 
 Create_Mode::Create_Mode(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Create_Mode)
 {
     ui->setupUi(this);
-    change_tab();
+//    change_tab();
     combobox3_check();
 }
 
@@ -31,15 +32,15 @@ Create_Mode::~Create_Mode()
     delete ui;
 }
 
-void Create_Mode::on_comboBox_2_currentIndexChanged(const QString &arg1)
-{
-    if (arg1 == "EZ Mode"){
-        ///show ez box
-    }
-    else {
-        ///show normal box
-    }
-}
+//void Create_Mode::on_comboBox_2_currentIndexChanged(const QString &arg1)
+//{
+//    if (arg1 == "EZ Mode"){
+//        ///show ez box
+//    }
+//    else {
+//        ///show normal box
+//    }
+//}
 
 void Create_Mode::on_pushButton_2_clicked()
 {
@@ -127,10 +128,10 @@ bool Create_Mode::NN_EZ_input_check(){
     }
 
     else {
-        if (GFiles.size()<2 and ui->comboBox_3->currentIndex()!=0 ) {
-            QMessageBox::warning(this, tr("Input Error"),tr("Import File Error!"));
-            return false;
-        }
+//        if (GFiles.size()<2 and ui->->currentIndex()!=0 ) {
+//            QMessageBox::warning(this, tr("Input Error"),tr("Import File Error!"));
+//            return false;
+//        }
         return true;
     }
 
@@ -152,7 +153,6 @@ void Create_Mode::on_pushButton_clicked()
         int Num_neu = ui->NUM_NEU->text().toInt();
         int Num_epoch = ui->CLASS_COUNT_2->text().toInt();
         int Num_class = ui->CLASS_COUNT->text().toInt();
-        int Import_Mode = ui->comboBox_3->currentIndex();
         int Sample_size = ui->CLASS_COUNT_5->text().toInt();
         string File_Name = ui->File_Name->text().toStdString();
         string activation = "nn.relu";
@@ -163,41 +163,44 @@ void Create_Mode::on_pushButton_clicked()
         vector<int> ners = {};
         NN_Mission EZ_NN_MISSION;
         EZ_NN_MISSION.Model_type = "NN_EZ";
-        EZ_NN_MISSION.Optimizer = "Adam";
+        EZ_NN_MISSION.Optimizer = 3;
         EZ_NN_MISSION.Learning_rate = 0.001;
         EZ_NN_MISSION.Epoch_count = Num_epoch;
         EZ_NN_MISSION.Class_count = Num_class;
-        EZ_NN_MISSION.Import_Mode = Import_Mode;
         EZ_NN_MISSION.Auto_Dataset = auto_dataset;
         EZ_NN_MISSION.Sample_Size = Sample_size;
         EZ_NN_MISSION.File_name = File_Name;
+        EZ_NN_MISSION.Logic = 0;
 
         EZ_NN_MISSION.Batch_size = batch_size;
         EZ_NN_MISSION.Dataset_File_Name = Read_File_Name;
-        if (Import_Mode != 0) {
-            for (int i=0;i<GFiles.size();i++) {
-                load_files.push_back(GFiles[i].toStdString());
-            }
-        }
+
         for (int i=0;i<Num_layer;i++) {
             ners.push_back(Num_neu);
             act.push_back(activation);
         }
         EZ_NN_MISSION.Neu = ners;
         EZ_NN_MISSION.Actvision = act;
+        auto temp_name = File_Name;
+        for (int i=0;i<2;i++) {
+            temp_name.pop_back();
+        }
+        temp_name += "_log.txt";
+
         ofstream NN_EZ_JOB;
-        NN_EZ_JOB.open("NN_EZ_JOB.txt");
+        NN_EZ_JOB.open(temp_name);
         NN_EZ_JOB << "Model Type:" << EZ_NN_MISSION.Model_type <<"\n";
         NN_EZ_JOB << "Optimizer:" << EZ_NN_MISSION.Optimizer << "\n";
         NN_EZ_JOB << "Learning Rate:" << EZ_NN_MISSION.Learning_rate << "\n";
         NN_EZ_JOB << "Class Count:" << EZ_NN_MISSION.Class_count << "\n";
         NN_EZ_JOB << "Epoch Count:" << EZ_NN_MISSION.Epoch_count << "\n";
-        NN_EZ_JOB << "Import Mode:" << EZ_NN_MISSION.Import_Mode << "\n";
+//        NN_EZ_JOB << "Import Mode:" << EZ_NN_MISSION.Import_Mode << "\n";
         NN_EZ_JOB << "Auto Dataset:" << EZ_NN_MISSION.Auto_Dataset << "\n";
         NN_EZ_JOB << "Sample Size:" << EZ_NN_MISSION.Sample_Size << "\n";
+        NN_EZ_JOB << "Logic" << EZ_NN_MISSION.Logic << "\n";
         NN_EZ_JOB << "File Name:" << EZ_NN_MISSION.File_name << "\n";
-        NN_EZ_JOB << "Read Script:" << EZ_NN_MISSION.Dataset_File_Name<<"\n";
-        NN_EZ_JOB << "Batch Size:" << EZ_NN_MISSION.Batch_size;
+        NN_EZ_JOB << "Read Script:" << EZ_NN_MISSION.Dataset_File_Name << "\n";
+        NN_EZ_JOB << "Batch Size:" << EZ_NN_MISSION.Batch_size << "\n";
         NN_EZ_JOB << "Import Files:";
         for (int i=0;i<load_files.size();i++) {
             NN_EZ_JOB << load_files[i] << "   ";
@@ -221,6 +224,8 @@ void Create_Mode::on_pushButton_clicked()
 }
 
 void pure_NN_generate(NN_Mission NNM) {
+    vector<string> Optimizer = {"Adadelta","AdagradDA","Adagrad","Adam","Ftrl","GradientDescent","Momentum","ProximalAdagrad","PorximalGradientDescent","RMSProp","sdca_","SyncReplicas"};
+    vector<string> Logitics = {"softmax_cross_entropy_with_logits_v2","sigmoid_corss_entropy_with_logits","sparse_softmax_cross_entropy_with_logits","weighted_cross_entropy_with_logits"};
     ofstream FILE_OUT;
     FILE_OUT.open(NNM.File_name);
     string importfile = NNM.Dataset_File_Name;
@@ -230,9 +235,9 @@ void pure_NN_generate(NN_Mission NNM) {
     string TAB = "    ";
     FILE_OUT << "# Copyright Yixue Zhang jedzhang@bu.edu\n";
     FILE_OUT << "import tensorflow as tf\n";
-    if (NNM.Import_Mode != 0) {FILE_OUT << "from "<<importfile << "import data_set_generation\n";}
     FILE_OUT << "from tqdm import tqdm\n";
     FILE_OUT << "from random import shuffle\n";
+    FILE_OUT << "import numpy as np\n";
     FILE_OUT << "NUM_Class = " << NNM.Class_count<<'\n';
     for (int i=0;i<NNM.Neu.size();i++) {
         FILE_OUT << "NUM_Layer_"<<i<<" = "<<NNM.Neu[i]<<"\n";
@@ -247,31 +252,32 @@ void pure_NN_generate(NN_Mission NNM) {
     FILE_OUT << "\n";
     FILE_OUT << "\n";
     FILE_OUT << "def nn_model(data):\n";
-    FILE_OUT << TAB << "Layer_0 = {'weights':tf.Variable(tf.random_normal([NUM_SAMPLE_SIZE, NUM_Layer_0])),'biases':tf.Variable(tf.random_normal([NUM_Layer_0]))}\n";
+    FILE_OUT << TAB << "Layer_0 = {'weights':tf.Variable(tf.random_normal([NUM_SAMPLE_SIZE, NUM_Layer_0]), name='lw0'),'biases':tf.Variable(tf.random_normal([NUM_Layer_0]), name='lb0')}\n";
     for (int i=1;i<NNM.Neu.size()-1;i++) {
-        FILE_OUT << TAB << "Layer_"<<i<<" = {'weights':tf.Variable(tf.random_normal([NUM_Layer_" << i-1  <<", NUM_Layer_"<< i << "])),'biases':tf.Variable(tf.random_normal([NUM_Layer_"<< i <<"]))}\n";
+        FILE_OUT << TAB << "Layer_"<<i<<" = {'weights':tf.Variable(tf.random_normal([NUM_Layer_" << i-1  <<", NUM_Layer_"<< i << "]), name='lw"<<i<<"'),'biases':tf.Variable(tf.random_normal([NUM_Layer_"<< i <<"]), name='lb"<<i<<"')}\n";
     }
-    FILE_OUT << TAB << "Layer_"<<NNM.Neu.size()-1<<" = {'weights':tf.Variable(tf.random_normal([NUM_Layer_" << NNM.Neu.size()-2  <<", NUM_Layer_"<< NNM.Neu.size()-1 << "])),'biases':tf.Variable(tf.random_normal([NUM_Layer_"<< NNM.Neu.size()-1  <<"]))}\n";
-    FILE_OUT << TAB << "Out_put = {'weights':tf.Variable(tf.random_normal([NUM_Layer_"<< NNM.Neu.size()-1<<", NUM_Class])),'biases':tf.Variable(tf.random_normal([NUM_Class]))}\n";
+    FILE_OUT << TAB << "Layer_"<<NNM.Neu.size()-1<<" = {'weights':tf.Variable(tf.random_normal([NUM_Layer_" << NNM.Neu.size()-2  <<", NUM_Layer_"<< NNM.Neu.size()-1 << "]), name='lw"<<NNM.Neu.size()-1<<"'),'biases':tf.Variable(tf.random_normal([NUM_Layer_"<< NNM.Neu.size()-1  <<"]), name='lb"<<NNM.Neu.size()-1<<"')}\n";
+    FILE_OUT << TAB << "Out_put = {'weights':tf.Variable(tf.random_normal([NUM_Layer_"<< NNM.Neu.size()-1<<", NUM_Class]), name='fcw'),'biases':tf.Variable(tf.random_normal([NUM_Class]), name='fcb')}\n";
     FILE_OUT << "\n";
-    FILE_OUT << TAB << "l0 = tf.add(tf.matmul(data, Layer_0['weights']), Layer_0['biases'])\n";
+    FILE_OUT << TAB << "l0 = tf.add(tf.matmul(data, Layer_0['weights']), Layer_0['biases'], name='l0')\n";
     FILE_OUT << TAB << "l0 = tf." << NNM.Actvision[0] <<"(l0)\n";
     FILE_OUT << "\n";
     for (int i=1;i<NNM.Neu.size()-1;i++) {
-        FILE_OUT << TAB << "l" << i << " = tf.add(tf.matmul(l"<<i-1<<", Layer_"<<i<<"['weights']), Layer_"<<i<<"['biases'])\n";
+        FILE_OUT << TAB << "l" << i << " = tf.add(tf.matmul(l"<<i-1<<", Layer_"<<i<<"['weights']), Layer_"<<i<<"['biases'], name='l"<< i<<"')\n";
         FILE_OUT << TAB << "l" << i << " = tf." << NNM.Actvision[i] << "(l"<<i<<")\n";
         FILE_OUT << "\n";
     }
-    FILE_OUT << TAB << "l" << NNM.Neu.size()-1 << " = tf.add(tf.matmul(l"<< NNM.Neu.size()-2<<", Layer_"<<NNM.Neu.size()-1<<"['weights']), Layer_"<<NNM.Neu.size()-1<<"['biases'])\n";
-    FILE_OUT << TAB << "l" << NNM.Neu.size()-1 << " = tf." <<NNM.Actvision[NNM.Neu.size() - 1] << "(l"<<NNM.Neu.size() - 1<<")\n";
-    FILE_OUT << TAB << "lout = tf.add(tf.matmul(l" << NNM.Neu.size()-1 <<", Out_put['weights']),Out_put['biases'])\n";
+    FILE_OUT << TAB <<"\n";
+    FILE_OUT << TAB << "l" << NNM.Neu.size()-1 << " = tf.add(tf.matmul(l"<< NNM.Neu.size()-2<<", Layer_"<<NNM.Neu.size()-1<<"['weights']), Layer_"<<NNM.Neu.size()-1<<"['biases'],name='l"<<NNM.Neu.size()-1<<"')\n";
+    FILE_OUT << TAB << "l" << NNM.Neu.size()-1 << " = tf." <<NNM.Actvision[NNM.Neu.size() - 1] << "(l"<<NNM.Neu.size()-1<<")\n";
+    FILE_OUT << TAB << "lout = tf.add(tf.matmul(l" << NNM.Neu.size()-1 <<", Out_put['weights']),Out_put['biases'], name='lo')\n";
     FILE_OUT << TAB << "\n";
     FILE_OUT << TAB << "return lout\n";
     FILE_OUT << "\n";
     FILE_OUT << "\n";
     FILE_OUT << "def shuffle_batch(xtrain, ytrain):\n";
     FILE_OUT << TAB << "com = list(zip(xtrain, ytrain))\n";
-    FILE_OUT << TAB << "shuffle(com)";
+    FILE_OUT << TAB << "shuffle(com)\n";
     FILE_OUT << TAB << "xtrain[:], ytrain[:] = zip(*com)\n";
     FILE_OUT << TAB << "return xtrain, ytrain\n";
     FILE_OUT << "\n";
@@ -282,54 +288,83 @@ void pure_NN_generate(NN_Mission NNM) {
     FILE_OUT << TAB << "return resx, resy\n";
     FILE_OUT << "\n";
     FILE_OUT << "\n";
+    FILE_OUT << "def train_NN(x, xtrain, ytrain, xtest, ytest, y):\n";
+    FILE_OUT << TAB << "prediction = nn_model(x)\n";
+    FILE_OUT << TAB << "cost = tf.reduce_mean(tf.nn."<< Logitics[NNM.Logic] <<"(logits=prediction, labels=y), name='cost')\n";
+    FILE_OUT << TAB << "optimizer = tf.train." << Optimizer[NNM.Optimizer] <<"Optimizer(learning_rate=" << NNM.Learning_rate <<").minimize(cost)\n";
+    FILE_OUT << TAB << "saver = tf.train.Saver()\n\n";
+    FILE_OUT << TAB << "with tf.Session() as sess:\n";
+    FILE_OUT << TAB << TAB << "sess.run(tf.global_variables_initializer())\n";
+    FILE_OUT << TAB << TAB << "for epoch in range(NUM_EPOCH):\n";
+    FILE_OUT << TAB << TAB << TAB << "epoch_loss = 0\n";
+    FILE_OUT << TAB << TAB << TAB << "xtrain, ytrain = shuffle_batch(xtrain, ytrain)\n";
+    FILE_OUT << TAB << TAB << TAB << "for idx in tqdm(range(int(len(xtrain)/BATCH_SIZE))):\n";
+    FILE_OUT << TAB << TAB << TAB << TAB << "epoch_x, epoch_y = next_batch(idx, xtrain, ytrain)\n";
+    FILE_OUT << TAB << TAB << TAB << TAB << "_, c = sess.run([optimizer, cost], feed_dict={x:epoch_x, y:epoch_y})\n";
+    FILE_OUT << TAB << TAB << TAB << TAB << "epoch_loss += c\n";
+    FILE_OUT << TAB << TAB << TAB << "print(\"Epoch:{} completed out of {}, loss:{}\".format(epoch,NUM_EPOCH,epoch_loss))\n";
+    FILE_OUT << TAB << TAB << TAB << "correct = tf.equal(tf.argmax(prediction,1), tf.argmax(y,1))\n";
+    FILE_OUT << TAB << TAB << TAB << "accuracy = tf.reduce_mean(tf.cast(correct, 'float'))\n";
+    FILE_OUT << TAB << TAB << TAB << "print('Accuracy:{}'.format(accuracy.eval({x:xtest,y:ytest})))\n";
+    FILE_OUT << TAB << TAB << "sp = saver.save(sess, \"NNMODEL/result.ckpt\")\n\n";
+    FILE_OUT << "def main():\n";
+    FILE_OUT << TAB << "xtrain = list(np.load('xtrain.npy'))\n";
+    FILE_OUT << TAB << "ytrain = list(np.load('ytrain.npy'))\n";
+    FILE_OUT << TAB << "xtest = list(np.load('xtest.npy'))\n";
+    FILE_OUT << TAB << "ytest = list(np.load('ytest.npy'))\n";
+    FILE_OUT << TAB << "train_NN(x, xtrain, ytrain, xtest, ytest,y)\n\n";
+    FILE_OUT << "if __name__ == '__main__':\n";
+    FILE_OUT << TAB << "main()\n";
+
+
 
     FILE_OUT.close();
 
 }
 
-void Create_Mode::on_Model_tpye_currentIndexChanged(int index)
-{
-    change_tab();
-}
+//void Create_Mode::on_Model_tpye_currentIndexChanged(int index)
+//{
+//    change_tab();
+//}
 
-void Create_Mode::change_tab() {
-    auto Model_type = ui->Model_tpye->currentIndex();
-    auto Gen_Mode = ui->Generation_Mode->currentIndex();
-    if (Model_type == 0) {
-        if (Gen_Mode == 0) { // NN and Expert
-            ui->NN_EXP->setEnabled(true);
-            ui->NN_EZ->setEnabled(false);
-            ui->CNN_EXP->setEnabled(false);
-            ui->CNN_EZ->setEnabled(false);
-        }
-        else { // NN and EZ
-            ui->NN_EXP->setEnabled(false);
-            ui->NN_EZ->setEnabled(true);
-            ui->CNN_EXP->setEnabled(false);
-            ui->CNN_EZ->setEnabled(false);
-        }
-    }
-    else {
-        if (Gen_Mode == 0) { // CNN and expert
-            ui->NN_EXP->setEnabled(false);
-            ui->NN_EZ->setEnabled(false);
-            ui->CNN_EXP->setEnabled(true);
-            ui->CNN_EZ->setEnabled(false);
-        }
-        else {// CNN and EZ
-            ui->NN_EXP->setEnabled(false);
-            ui->NN_EZ->setEnabled(false);
-            ui->CNN_EXP->setEnabled(false);
-            ui->CNN_EZ->setEnabled(true);
-        }
-    }
-}
+//void Create_Mode::change_tab() {
+//    auto Model_type = ui->Model_tpye->currentIndex();
+//    auto Gen_Mode = ui->Generation_Mode->currentIndex();
+//    if (Model_type == 0) {
+//        if (Gen_Mode == 0) { // NN and Expert
+//            ui->NN_EXP->setEnabled(true);
+//            ui->NN_EZ->setEnabled(false);
+//            ui->CNN_EXP->setEnabled(false);
+//            ui->CNN_EZ->setEnabled(false);
+//        }
+//        else { // NN and EZ
+//            ui->NN_EXP->setEnabled(false);
+//            ui->NN_EZ->setEnabled(true);
+//            ui->CNN_EXP->setEnabled(false);
+//            ui->CNN_EZ->setEnabled(false);
+//        }
+//    }
+//    else {
+//        if (Gen_Mode == 0) { // CNN and expert
+//            ui->NN_EXP->setEnabled(false);
+//            ui->NN_EZ->setEnabled(false);
+//            ui->CNN_EXP->setEnabled(true);
+//            ui->CNN_EZ->setEnabled(false);
+//        }
+//        else {// CNN and EZ
+//            ui->NN_EXP->setEnabled(false);
+//            ui->NN_EZ->setEnabled(false);
+//            ui->CNN_EXP->setEnabled(false);
+//            ui->CNN_EZ->setEnabled(true);
+//        }
+//    }
+//}
 
 
-void Create_Mode::on_Generation_Mode_currentIndexChanged(int index)
-{
-    change_tab();
-}
+//void Create_Mode::on_Generation_Mode_currentIndexChanged(int index)
+//{
+//    change_tab();
+//}
 
 void Create_Mode::on_find_file_clicked()
 {
@@ -346,19 +381,31 @@ void Create_Mode::on_find_file_clicked()
     ui->CLASS_COUNT->setEnabled(false);
     GFiles = Files;
 }
-void Create_Mode::combobox3_change() {
 
 
 
-}
 
 
-void Create_Mode::on_comboBox_3_currentIndexChanged(int index)
+
+
+void Create_Mode::on_pushButton_5_clicked()
 {
 
 }
 
-void Create_Mode::on_comboBox_3_activated(int index)
+void Create_Mode::on_find_file_3_clicked()
 {
+    QStringList Files = QFileDialog::getOpenFileNames(this,tr("Select File"),QDir::currentPath(),"All Files *.*");
+    QString num_files = QString::number(Files.size());
+    ui->CLASS_COUNT->setEnabled(true);
+    ui->CLASS_COUNT->setText(QString(num_files));
+    ui->CLASS_COUNT->setPlaceholderText(QString(num_files));
+    ui->CLASS_COUNT->setEnabled(false);
+    GFiles1 = Files;
+}
 
+
+void Create_Mode::on_pushButton_4_clicked()
+{
+    NN_Mission EZ_NN_MISSION;
 }

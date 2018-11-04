@@ -10,7 +10,7 @@ using std::string;
 typedef struct NN_Mission ms1;
 struct NN_Mission{
     string Model_type;
-    string Optimizer;
+    int Optimizer;
     string File_name;
     string Dataset_File_Name;
     vector<string> Actvision = {};
@@ -18,9 +18,9 @@ struct NN_Mission{
     double Learning_rate;
     int Epoch_count;
     int Class_count;
-    int Import_Mode;
     int Sample_Size;
     int Batch_size;
+    int Logic;
     bool Auto_Dataset;
 
 
@@ -42,7 +42,7 @@ public:
 
 
 private slots:
-    void on_comboBox_2_currentIndexChanged(const QString &arg1);
+    //void on_comboBox_2_currentIndexChanged(const QString &arg1);
 
     void on_pushButton_2_clicked();
 
@@ -58,23 +58,31 @@ private slots:
 
     bool NN_EZ_input_check();
 
-    void on_Model_tpye_currentIndexChanged(int index);
+    //void on_Model_tpye_currentIndexChanged(int index);
 
     void on_pushButton_3_clicked();
 
     void change_tab();
 
-    void on_Generation_Mode_currentIndexChanged(int index);
+    //void on_Generation_Mode_currentIndexChanged(int index);
 
     void combobox3_check();
 
     void on_find_file_clicked();
 
-    void on_comboBox_3_currentIndexChanged(int index);
+//    void on_comboBox_3_currentIndexChanged(int index);
 
     void combobox3_change();
 
-    void on_comboBox_3_activated(int index);
+//    void on_comboBox_3_activated(int index);
+
+    void on_pushButton_5_clicked();
+
+    void on_find_file_3_clicked();
+
+    void on_CLASS_COUNT_8_cursorPositionChanged(int arg1, int arg2);
+
+    void on_pushButton_4_clicked();
 
 private:
     Ui::Create_Mode *ui;

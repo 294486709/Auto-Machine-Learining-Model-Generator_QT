@@ -25,59 +25,6 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QComboBox" name="Model_tpye">
-   <property name="geometry">
-    <rect>
-     <x>170</x>
-     <y>70</y>
-     <width>201</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>15</pointsize>
-    </font>
-   </property>
-   <item>
-    <property name="text">
-     <string>Nerual Network</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Convolutional NN</string>
-    </property>
-   </item>
-  </widget>
-  <widget class="QComboBox" name="Generation_Mode">
-   <property name="geometry">
-    <rect>
-     <x>580</x>
-     <y>70</y>
-     <width>171</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>15</pointsize>
-    </font>
-   </property>
-   <property name="currentIndex">
-    <number>1</number>
-   </property>
-   <item>
-    <property name="text">
-     <string>Expert Mode</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>EZ Mode</string>
-    </property>
-   </item>
-  </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
@@ -96,42 +43,6 @@
     <string>Create Model</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>70</y>
-     <width>121</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>15</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Model Type:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>410</x>
-     <y>60</y>
-     <width>191</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>15</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Generation Mode:</string>
-   </property>
-  </widget>
   <widget class="QTabWidget" name="Tabls">
    <property name="enabled">
     <bool>true</bool>
@@ -139,13 +50,13 @@
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>110</y>
+     <y>60</y>
      <width>721</width>
-     <height>471</height>
+     <height>521</height>
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="NN_EZ">
     <property name="enabled">
@@ -158,7 +69,7 @@
      <property name="geometry">
       <rect>
        <x>450</x>
-       <y>390</y>
+       <y>410</y>
        <width>141</width>
        <height>41</height>
       </rect>
@@ -171,7 +82,7 @@
      <property name="geometry">
       <rect>
        <x>150</x>
-       <y>390</y>
+       <y>410</y>
        <width>141</width>
        <height>41</height>
       </rect>
@@ -180,11 +91,11 @@
       <string>Generate</string>
      </property>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>120</x>
-       <y>0</y>
+       <x>110</x>
+       <y>20</y>
        <width>507</width>
        <height>378</height>
       </rect>
@@ -360,18 +271,6 @@
                     </property>
                    </widget>
                   </item>
-                  <item>
-                   <widget class="QLabel" name="label_8">
-                    <property name="font">
-                     <font>
-                      <pointsize>15</pointsize>
-                     </font>
-                    </property>
-                    <property name="text">
-                     <string>Data Import Method:</string>
-                    </property>
-                   </widget>
-                  </item>
                  </layout>
                 </item>
                 <item>
@@ -389,25 +288,6 @@
                     <property name="placeholderText">
                      <string>6</string>
                     </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QComboBox" name="comboBox_3">
-                    <item>
-                     <property name="text">
-                      <string>Load Default Numpy File</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Import From Folder</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Import From File</string>
-                     </property>
-                    </item>
                    </widget>
                   </item>
                  </layout>
@@ -486,7 +366,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Output File Name:</string>
+           <string>Process Script Name:</string>
           </property>
          </widget>
         </item>
@@ -517,50 +397,11 @@
     <attribute name="title">
      <string>NN Expert Mode</string>
     </attribute>
-    <widget class="QLabel" name="label_9">
-     <property name="geometry">
-      <rect>
-       <x>28</x>
-       <y>70</y>
-       <width>166</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>15</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Number of Layers:</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="NUM_LAYER_2">
-     <property name="geometry">
-      <rect>
-       <x>200</x>
-       <y>70</y>
-       <width>176</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>15</pointsize>
-      </font>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="placeholderText">
-      <string>10</string>
-     </property>
-    </widget>
     <widget class="QPushButton" name="pushButton_3">
      <property name="geometry">
       <rect>
-       <x>530</x>
-       <y>380</y>
+       <x>520</x>
+       <y>400</y>
        <width>141</width>
        <height>41</height>
       </rect>
@@ -573,7 +414,7 @@
      <property name="geometry">
       <rect>
        <x>280</x>
-       <y>380</y>
+       <y>400</y>
        <width>141</width>
        <height>41</height>
       </rect>
@@ -585,8 +426,8 @@
     <widget class="QPushButton" name="pushButton_5">
      <property name="geometry">
       <rect>
-       <x>60</x>
-       <y>380</y>
+       <x>50</x>
+       <y>400</y>
        <width>141</width>
        <height>41</height>
       </rect>
@@ -595,138 +436,436 @@
       <string>Layer Setting</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_12">
+    <widget class="QWidget" name="">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>20</y>
-       <width>166</width>
-       <height>31</height>
+       <x>60</x>
+       <y>60</y>
+       <width>618</width>
+       <height>275</height>
       </rect>
      </property>
-     <property name="font">
-      <font>
-       <pointsize>15</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Number of Layers:</string>
-     </property>
-    </widget>
-    <widget class="QWidget" name="layoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>310</x>
-       <y>170</y>
-       <width>381</width>
-       <height>195</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
+     <layout class="QVBoxLayout" name="verticalLayout_25">
       <item>
-       <widget class="QCheckBox" name="checkBox_2">
-        <property name="font">
-         <font>
-          <pointsize>15</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Enable Automatic Sample Generator</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
+       <layout class="QVBoxLayout" name="verticalLayout_24">
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout">
+         <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
-           <widget class="QLabel" name="label_14">
-            <property name="font">
-             <font>
-              <pointsize>15</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>Class Count:</string>
-            </property>
-           </widget>
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout">
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_19">
+                <item>
+                 <widget class="QLabel" name="label_23">
+                  <property name="font">
+                   <font>
+                    <pointsize>15</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Output Name:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="NUM_LAYER_7">
+                  <property name="font">
+                   <font>
+                    <pointsize>15</pointsize>
+                   </font>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="placeholderText">
+                   <string>pure_NN.py</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_15">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_14">
+                  <item>
+                   <widget class="QLabel" name="label_20">
+                    <property name="font">
+                     <font>
+                      <pointsize>15</pointsize>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Class Count:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="NUM_LAYER_9">
+                    <property name="font">
+                     <font>
+                      <pointsize>15</pointsize>
+                     </font>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                    <property name="placeholderText">
+                     <string>10</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout">
+                  <item>
+                   <widget class="QLabel" name="label_15">
+                    <property name="font">
+                     <font>
+                      <pointsize>15</pointsize>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Epoch Count:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="NUM_LAYER_8">
+                    <property name="font">
+                     <font>
+                      <pointsize>15</pointsize>
+                     </font>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                    <property name="placeholderText">
+                     <string>100</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_18">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_17">
+                  <item>
+                   <widget class="QLabel" name="label_22">
+                    <property name="font">
+                     <font>
+                      <pointsize>15</pointsize>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Batch Size:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="NUM_LAYER_11">
+                    <property name="font">
+                     <font>
+                      <pointsize>15</pointsize>
+                     </font>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                    <property name="placeholderText">
+                     <string>100</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_16">
+                  <item>
+                   <widget class="QLabel" name="label_21">
+                    <property name="font">
+                     <font>
+                      <pointsize>15</pointsize>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Sample Size:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="NUM_LAYER_10">
+                    <property name="font">
+                     <font>
+                      <pointsize>15</pointsize>
+                     </font>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                    <property name="placeholderText">
+                     <string>1000</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_22">
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_20">
+                <item>
+                 <widget class="QLabel" name="label_24">
+                  <property name="font">
+                   <font>
+                    <pointsize>15</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Optimizer:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboBox">
+                  <property name="font">
+                   <font>
+                    <pointsize>15</pointsize>
+                   </font>
+                  </property>
+                  <property name="currentIndex">
+                   <number>3</number>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>Adadelta</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>AdagradDA</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Adagrad</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Adam</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Ftrl</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>GradientDescent</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Momentum</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>ProximalAdagrad</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>PorximalGradientDescent</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>RMSProp</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>sdca</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>SyncReplicas</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_21">
+                <item>
+                 <widget class="QLabel" name="label_25">
+                  <property name="font">
+                   <font>
+                    <pointsize>15</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Logic:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboBox_2">
+                  <property name="font">
+                   <font>
+                    <pointsize>15</pointsize>
+                   </font>
+                  </property>
+                  <property name="currentIndex">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>softmax</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>sigmoid</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>aparse_softmax</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>weighted</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+           </layout>
           </item>
           <item>
-           <widget class="QLabel" name="label_15">
+           <widget class="QCheckBox" name="checkBox_3">
             <property name="font">
              <font>
               <pointsize>15</pointsize>
              </font>
             </property>
             <property name="text">
-             <string>Epoch Count:</string>
+             <string>Enable Automatic Sample Generator</string>
             </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_13">
-            <property name="font">
-             <font>
-              <pointsize>15</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>Data Import Method:</string>
+            <property name="checked">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
          </layout>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_2">
+         <layout class="QHBoxLayout" name="horizontalLayout_25">
           <item>
-           <widget class="QLineEdit" name="CLASS_COUNT_4">
-            <property name="font">
-             <font>
-              <pointsize>15</pointsize>
-             </font>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-            <property name="placeholderText">
-             <string>6</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="CLASS_COUNT_3">
-            <property name="font">
-             <font>
-              <pointsize>15</pointsize>
-             </font>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-            <property name="placeholderText">
-             <string>6</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="comboBox_4">
+           <layout class="QHBoxLayout" name="horizontalLayout_23">
             <item>
-             <property name="text">
-              <string>Import</string>
-             </property>
+             <widget class="QLabel" name="label_33">
+              <property name="font">
+               <font>
+                <pointsize>15</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Sample Size:</string>
+              </property>
+             </widget>
             </item>
             <item>
-             <property name="text">
-              <string>Load</string>
-             </property>
+             <widget class="QLineEdit" name="CLASS_COUNT_7">
+              <property name="font">
+               <font>
+                <pointsize>15</pointsize>
+               </font>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <property name="placeholderText">
+               <string>300</string>
+              </property>
+             </widget>
             </item>
-           </widget>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_24">
+            <item>
+             <widget class="QLabel" name="label_26">
+              <property name="font">
+               <font>
+                <pointsize>15</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Class Count:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="CLASS_COUNT_8">
+              <property name="font">
+               <font>
+                <pointsize>15</pointsize>
+               </font>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <property name="placeholderText">
+               <string>6</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_26">
+        <item>
+         <widget class="QLabel" name="label_32">
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Load Dataset:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="find_file_3">
+          <property name="text">
+           <string>Find File</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -822,12 +961,6 @@
     </widget>
    </widget>
   </widget>
-  <zorder>label_3</zorder>
-  <zorder>label_2</zorder>
-  <zorder>label</zorder>
-  <zorder>Model_tpye</zorder>
-  <zorder>Generation_Mode</zorder>
-  <zorder>Tabls</zorder>
  </widget>
  <resources/>
  <connections/>
